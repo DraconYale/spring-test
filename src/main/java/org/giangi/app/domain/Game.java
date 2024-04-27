@@ -1,9 +1,6 @@
 package org.giangi.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,7 +11,6 @@ import java.util.*;
 @Table(name = "games")
 public class Game {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,17 +19,17 @@ public class Game {
     @NotNull
     private String name;
 
-    @JsonIgnore
+    @JsonIgnoreProperties("games")
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "designer_game", joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "designer_id"))
     private List<Designer> designers = new ArrayList<>();
 
-    @JsonIgnore
+    @JsonIgnoreProperties("collection")
     @ManyToMany(mappedBy = "collection")
     private List<User> ownedBy = new ArrayList<>();
 
-    @JsonIgnore
+    @JsonIgnoreProperties("publishedGames")
     @ManyToOne(cascade = CascadeType.ALL)
     private Publisher publisher;
 

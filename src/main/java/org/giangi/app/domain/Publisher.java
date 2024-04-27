@@ -2,6 +2,8 @@ package org.giangi.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -12,14 +14,13 @@ import java.util.Objects;
 @Entity
 public class Publisher {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    @JsonBackReference(value = "game_publisher")
+    @JsonIgnoreProperties({"designers", "ownedBy", "publisher"})
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "publisher_id")
     private List<Game> publishedGames = new ArrayList<>();

@@ -1,6 +1,7 @@
 package org.giangi.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +14,6 @@ import java.util.*;
 @Table(name = "users")
 public class User {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -22,14 +22,14 @@ public class User {
     @NotNull
     private String nickname;
 
-    @JsonManagedReference(value = "user_collection")
+    @JsonIgnoreProperties({"designers", "ownedBy", "publisher"})
     @ManyToMany
     @OrderBy("name")
     @JoinTable(name = "collection", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
     private List<Game> collection = new ArrayList<>();
 
-    public  User(){
+    public User(){
     }
 
     public User(String nickname) {

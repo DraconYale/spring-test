@@ -1,6 +1,7 @@
 package org.giangi.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +14,6 @@ import java.util.Objects;
 @Entity
 public class Designer {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,6 +28,8 @@ public class Designer {
 
     @Column(name = "birth date")
     private LocalDate birthDate;
+
+    @JsonIgnoreProperties({"designers", "ownedBy", "publisher"})
     @Column(name = "games")
     @ManyToMany(cascade = CascadeType.ALL , mappedBy = "designers")
     private List<Game> games = new ArrayList<>();
