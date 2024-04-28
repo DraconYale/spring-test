@@ -3,10 +3,16 @@ package org.giangi.app.domain;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.*;
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
 @Entity
 @Table(name = "games")
 public class Game {
@@ -47,7 +53,11 @@ public class Game {
         this.weight = weight;
     }
 
-    public Game() {
+
+    public Game(String name, LocalDate pubDate, Weight weight) {
+        this.name = name;
+        this.pubDate = pubDate;
+        this.weight = weight;
     }
 
     public Game(String name, List<Designer> designers, Publisher publisher, LocalDate pubDate, Weight weight) {
@@ -58,62 +68,4 @@ public class Game {
         this.weight = weight;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Designer> getDesigners() {
-        return designers;
-    }
-
-    public void setDesigners(List<Designer> designers) {
-        this.designers = designers;
-    }
-
-    public void setOwnedBy(List<User> ownedBy) {
-        this.ownedBy = ownedBy;
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
-
-    public LocalDate getPubDate() {
-        return pubDate;
-    }
-
-    public void setPubDate(LocalDate pubDate) {
-        this.pubDate = pubDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Game game = (Game) o;
-
-        return Objects.equals(id, game.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
 }
