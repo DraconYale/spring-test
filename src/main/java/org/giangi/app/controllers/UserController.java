@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.giangi.app.domain.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -23,7 +22,7 @@ public class UserController {
     public List<User> getUsers(){
         List<User> users = new ArrayList<>();
         userService.listAll().forEach(users::add);
-       return users;
+        return users;
     }
 
     @GetMapping("/users/{id}")
@@ -34,7 +33,6 @@ public class UserController {
         catch (NoSuchElementException e){
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @PostMapping("/users/new")
@@ -53,7 +51,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     @DeleteMapping("users/{id}")
     public void deleteUser(@PathVariable Long id){

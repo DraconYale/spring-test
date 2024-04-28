@@ -61,7 +61,6 @@ public class BootStrapData implements CommandLineRunner {
         toAnt.add(wonders);
         toAnt.add(hanabi);
         bauza.setGames(toAnt);
-        System.out.println("Antoine games: " + bauza.getGames().toString());
 
         List<Game> toRepo = new ArrayList<>(repos.getPublishedGames());
         toRepo.add(wonders);
